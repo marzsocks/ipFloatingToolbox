@@ -3,7 +3,7 @@
     var options = $.extend({
 
         menus: [],
-        relativeTo: document.body,
+        relativeTo: $(this).parent(),
         position: null, // ['right', 'top'],// Note there the difference between [right,top] and [top,right] -> it is what it means unless axisContainment is off
         positionNAN: null,
         offset: { x: 15, y: 15 },
@@ -11,7 +11,7 @@
         axisContainment: true,
         windowContainment: true,
         animate: 500,
-        events: { handleDblClick: null, onLoad: null, click: null },
+        events: { handleDblClick: null, onLoad: null, click: null, dblclick: null },
         mode: 'LeftClick',
         setAnchor: null,
         resetPosition: false,
@@ -19,15 +19,16 @@
         toolbarHandle: true,
         theme: 'theme-dark',
         zIndex: null,
+        timeout: null
 
     }, options);
 
+    var Control = this;
     var ControlID = $(this).attr('id');
     var ToolbarHandle = $(this).find('.ip_FloatingToolbarHandle');
     var FloatingToolbarContainer = $(this).find('.ip_FloatingToolbarContainer');
     var Error = '';
     var Position = { callout: '' }
-    var isVisible = $(this).is(":visible");
 
     if (options.resetPosition && this[0].anchor) {
                 
@@ -48,6 +49,9 @@
     $(this).appendTo(document.body);
     $(this).attr('mode', options.mode);
     $(this).addClass('theme-dark');
+
+    var isVisible = $(this).is(":visible");
+
 
     if (ToolbarHandle.length == 0 && options.toolbarHandle) { $(this).prepend('<div class="ip_FloatingToolbarHandle" title="Double click to reset position"></div>'); ToolbarHandle = $(this).find('.ip_FloatingToolbarHandle'); }
     if (FloatingToolbarContainer.length == 0) { $(this).append('<div class="ip_FloatingToolbarContainer"></div>'); FloatingToolbarContainer = $(this).find('.ip_FloatingToolbarContainer')[0]; }
@@ -156,5 +160,7 @@
 
     if (!isVisible) { $(this).fadeIn(100); }
 
+    if (options.timeout) { setTimeout(function () { $(Control).fadeOut() }, options.timeout); }
+     
     if (Error != '') { ip_RaiseEvent(GridID, 'warning', null, Error); }
 }
