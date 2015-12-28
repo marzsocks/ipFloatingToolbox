@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+    <script src="scripts/ip.base.js"></script>
+    <script src="scripts/ip.floatingtoolbox.js"></script>
+    <link href="css/ip.floatingtoolbox.css" rel="stylesheet" />
+
+    <script>
+
+        $(document).ready(function () {
+
+
+						showToolBox('.cell-description');
+
+        });        
+
+        function showToolBox(relativeTo)
+        {        	
+            $('#demo').ip_FloatingToolbox({
+                menus: ['#content1', '#content2'],
+                relativeTo: relativeTo,
+            });
+        }
+
+    </script>
+
+    <style>
+        body {
+            font-family: Arial;
+            color: white;
+            background-color: #3d3d3d;
+            margin: 0;
+            padding: 60px;
+        }
+
+        a { color:#46b3ff; text-decoration:dotted; }
+
+        .cell{ width:50px;height:50px;cursor:pointer; }
+        .cell-description { cursor:pointer;width:340px;padding:10px; border:dashed 1px black }
+        .green-bg{ background-color:#2fad75; }
+        .pink-bg{ background-color:#e73565; }
+        .orange-bg{ background-color:#f97848; }
+        .blue-bg{ background-color:#3574a0; }
+        .menu{display:none;padding:3px 0;}
+    </style>
+
+    <title>ip.floatingtoolbox demo</title>
+
+</head>
+<body>
+
+    <div id="content1" class="menu">Content 1</div>
+    <div id="content2" class="menu">Content 2</div>
+    <div id="demo"></div>
+
+
+    <h1>Floating Toolbox Demo</h1>
+    <table cellspacing="5px;">
+        <tr>
+            <td onclick="showToolBox(this);" class="cell green-bg"></td>
+            <td onclick="showToolBox(this);" class="cell pink-bg"></td>
+            <td onclick="showToolBox(this);" class="cell-description" rowspan="2"><p>The toolbox on the right is shown relative to this element. You can drag it around by clicking on its handle bar, or click on a color block.</p></td>
+        </tr>
+        <tr>
+            <td onclick="showToolBox(this);" class="cell orange-bg"></td>
+            <td onclick="showToolBox(this);" class="cell blue-bg"></td>
+        </tr>
+    </table>
+
+
+    <p>For more usage examples and documentation please <a href="http://www.inspireproduction.co.za/#/demo-ui/floating-tool-box">click here</a>.</p>
+</body>
+</html>
